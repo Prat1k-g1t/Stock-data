@@ -7,9 +7,7 @@ import pandas as pd
 # from pandas_datareader import data as pdr
 import yfinance as yf
 import matplotlib.pyplot as plt
-# import seaborn as sns
 import plotly.offline as plty
-# plty.init_notebook_mode(connected=True)
 pd.options.plotting.backend = 'plotly'
 
 """
@@ -37,7 +35,7 @@ stock_data = yf.download(stocklist, start=start, end=end)
 # print(stock_data.index)
 # print(stock_data.columns)
 
-stock_close = stock_data.Close
+stock_close = stock_data.Close # Subcategory closing prices as pandas dataframe
 print(stock_close.index)
 print(stock_close.describe())
 
