@@ -1,4 +1,7 @@
 """
+    Stock trends using (simple and exponential) moving averages
+"""
+"""
     Import dependencies
 """
 import datetime as dt 
@@ -36,6 +39,11 @@ stock_close['MA50_ABN'] = stock_close['ABN.AS'].rolling(window=50, min_periods=0
 stock_close['MA50_ING'] = stock_close['ING'].rolling(window=50, min_periods=0).mean()
 stock_close['MA50_NSE'] = stock_close['^NSEI'].rolling(window=50, min_periods=0).mean()
 
+
+stock_close['EMA50_ABN'] = stock_close['ABN.AS'].ewm(span=50, adjust=False).mean()
+stock_close['EMA50_ING'] = stock_close['ING'].ewm(span=50, adjust=False).mean()
+stock_close['EMA50_NSE'] = stock_close['^NSEI'].ewm(span=50, adjust=False).mean()
+
 stock_close['MA200_ABN'] = stock_close['ABN.AS'].rolling(window=200, min_periods=0).mean()
 stock_close['MA200_ING'] = stock_close['ING'].rolling(window=200, min_periods=0).mean()
 stock_close['MA200_NSE'] = stock_close['^NSEI'].rolling(window=200, min_periods=0).mean()
@@ -57,6 +65,8 @@ fig_NSE.add_trace(go.Candlestick(x=stock_data.index, open=stock_open['^NSEI'], h
 """
 fig_NSE.add_trace(go.Scatter(x=stock_data.index, y=stock_close['MA50_NSE'], marker_color='grey', name='MA50'), row=1, col=1)
 
+fig_NSE.add_trace(go.Scatter(x=stock_data.index, y=stock_close['EMA50_NSE'], marker_color='blue', name='EMA50'), row=1, col=1)
+
 fig_NSE.add_trace(go.Scatter(x=stock_data.index, y=stock_close['MA200_NSE'], marker_color='lightgrey', name='MA200'), row=1, col=1)
 
 fig_NSE.add_trace(go.Bar(x=stock_data.index, y=stock_vol['^NSEI'], marker_color='red', showlegend=False), row=2, col=1)
@@ -70,8 +80,8 @@ fig_NSE.update_layout(
         tickfont_size=12
     ),
     autosize=False,
-    width=800,
-    height=500,
+    width=1000,
+    height=800,
     margin=dict(l=50, r=50, b=100, pad=5),
     paper_bgcolor = 'LightSteelBlue'
     )

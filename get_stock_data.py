@@ -1,4 +1,7 @@
 """
+    Getting stock data for the past 5000 days using yfinance
+"""
+"""
     Import dependencies
 """
 import datetime as dt 
